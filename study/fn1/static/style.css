@@ -1,0 +1,36 @@
+.title {
+    font-style: normal;
+    font-size: 24px;
+    font-family: "serif";
+}
+
+body {
+    background-color: rgba(0,255,255,0.05)
+}
+
+.log1 {
+    resize: none;
+    max-height: 380px;
+    max-width: 800px;
+    font-size: 180%;
+    border-radius: 5px; /* 角の丸みを指定 */
+    padding: 0px; /* テキストと枠線の間の余白を指定 */
+    overflow: scroll;
+}
+
+.btn1{
+    width: 70px;
+    padding: 10px;
+    font-size: 150%;
+    cursor: pointer;
+}
+
+.btn2{
+    width: 150px;
+    padding: 10px;
+    font-size: 120%;
+    box-sizing: border-box;
+    border: 1px solid #68779a;
+    background: #cbe8fa;
+    cursor: pointer;
+}

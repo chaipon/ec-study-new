@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>fn1のTOP画面</title>
+        <link rel="stylesheet" href="{{ url_for('fn1.static', filename='style.css')}}" />
+    </head>
+</html>
+
+<body>
+    <p class="title">テストアプリケーション</p>
+    <div>
+        <button id="minus" class="btn1">-</button>
+        <span id="number" class="btn1">0</span>
+        <button id="plus" class="btn1">+</button>
+    </div>
+    <br/>
+    <textarea id="logarea" class="log1" rows="50" cols="150" readonly>
+    </textarea>
+    <br/>
+    <button id="logsave" class="btn2">ログ保存</button>
+    <button id="logclear" class="btn2">クリア</button>
+    <br/>
+    <!-- <img src="{{ url_for('fn1.static', filename='images/test.png' )}}" alt="テスト画像" title="テスト"> -->
+    <script src="{{ url_for('fn1.static', filename='script.js' )}}"></script>
+</body>
