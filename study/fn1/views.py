@@ -35,17 +35,22 @@ def show_name(na):
     # 変数をテンプレートエンジンに渡す
     return render_template("fn1/index.html", param1=na)
 
-@fn1.route("/contacts/new", methods=['GET', 'POST'])
+@fn1.route("/contacts/new", methods=['GET'])
 def contact_new():
+    # レスポンスオブジェクトを取得する
+    return render_template("fn1/contact_new.html")
+    # クッキーを設定する
+    #response.set_cookie("flaskbook key", "flaskbook value")
+    # セッションを設定する
+    #session["username"] = "test-user"
+    #return response
 
+
+@fn1.route("/contacts", methods=['GET', 'POST'])
+def contacts():
     if request.method == 'GET':
-        # レスポンスオブジェクトを取得する
-        return render_template("fn1/contact_new.html")
-        # クッキーを設定する
-        #response.set_cookie("flaskbook key", "flaskbook value")
-        # セッションを設定する
-        #session["username"] = "test-user"
-        #return response
+        questions = Question.query.all()
+        return render_template("fn1/contacts.html", questions=questions)
 
     if request.method == 'POST':
         # form属性を使ってフォームの値を取得する
@@ -80,11 +85,6 @@ def contact_new():
         db_session.commit()
         questions = Question.query.all()
 
+        flash("問い合わせ完了")
         return render_template('fn1/contacts.html', questions=questions)
-
-@fn1.route("/contacts", methods=['GET'])
-def contacts():
-    questions = Question.query.all()
-    return render_template("fn1/contacts.html", questions=questions)
-
 

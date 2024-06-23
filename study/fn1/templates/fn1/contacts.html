@@ -2,27 +2,37 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8"/>
-        <title>問い合わせ完了</title>
+        <title>問い合わせ一覧</title>
         <link rel="stylesheet" href="{{ url_for('fn1.static', filename='style.css')}}"
         />
     </head>
     {% block content %}
-
+    <header>
+        <a href={{url_for('fn1.contact_new')}}>新規問い合わせ</a>
+    </header>
     <body>
-        <h2>問い合わせ完了</h2>
-	<h3>問い合わせ一覧</h3>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li class="flash">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+	<h2>問い合わせ一覧</h2>
 	<table>
 		<thead>
 		    <th scope="col">名前</th>
 		    <th scope="col">メール</th>
-		    <th scope="col">問い合わ内容</th>
+		    <th scope="col">問い合わせ内容</th>
 	    </thead>
         <tbody>
             {% for question in questions %}
             <tr>
                 <th scope="row">{{question.name}}</th>
                 <td>{{question.mail}}</td>
-                <td>{{question.content}}</td>
+                <td><a href="{{url_for('fn1.contacts')}}/{{question.id}}">{{question.content|truncate(40)}}</a></td>
             </tr>
             {% endfor %}
         </tbody>
