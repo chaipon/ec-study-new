@@ -11,6 +11,8 @@ from flask import (
     make_response,
     session
 )
+from study.models.question import Question
+from study.database import db_session
 
 from email_validator import validate_email, EmailNotValidError
 
@@ -33,24 +35,23 @@ def show_name(na):
     # 変数をテンプレートエンジンに渡す
     return render_template("fn1/index.html", param1=na)
 
-@fn1.route("/contact")
-def contact():
+@fn1.route("/contacts/new", methods=['GET', 'POST'])
+def contact_new():
 
-    # レスポンスオブジェクトを取得する
-    response = make_response(render_template("fn1/contact.html"))
-    # クッキーを設定する
-    response.set_cookie("flaskbook key", "flaskbook value")
-    # セッションを設定する
-    session["username"] = "test-user"
-    return response
+    if request.method == 'GET':
+        # レスポンスオブジェクトを取得する
+        return render_template("fn1/contact_new.html")
+        # クッキーを設定する
+        #response.set_cookie("flaskbook key", "flaskbook value")
+        # セッションを設定する
+        #session["username"] = "test-user"
+        #return response
 
-@fn1.route("/contact_complete", methods=["GET", "POST"])
-def contact_complete():
-    if request.method == "POST":
+    if request.method == 'POST':
         # form属性を使ってフォームの値を取得する
-        username = request.form['username']
-        email = request.form["email"]
-        description = request.form["description"]
+        username = request.form.get('username')
+        email = request.form.get('email')
+        content = request.form.get('description')
 
         # 入力チェック
         is_valid = True
@@ -68,18 +69,22 @@ def contact_complete():
             flash("メールアドレスの形式で入力して下さい")
             is_valid = False
 
-        if not description:
+        if not content:
             flash("問い合わせ内容は必須です")
             is_valid = False
 
         if not is_valid:
-            return redirect(url_for("fn1.contact"))
-        
-        # メールを送る(最後に実装)
+            return redirect(url_for("fn1.contact_new"))
+        question = Question(name = username, mail = email, content=content)
+        db_session.add(question)
+        db_session.commit()
+        questions = Question.query.all()
 
-        # contactエンドポイントへリダイレクトする
-        flash("問い合わせありがとうございました。")
-        return redirect(url_for("fn1.contact_complete"))
-    
-    return render_template("fn1/contact_complete.html")
+        return render_template('fn1/contacts.html', questions=questions)
+
+@fn1.route("/contacts", methods=['GET'])
+def contacts():
+    questions = Question.query.all()
+    return render_template("fn1/contacts.html", questions=questions)
+
 
