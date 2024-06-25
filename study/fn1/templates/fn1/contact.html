@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>問い合わせ</title>
+        <link rel="stylesheet" href="{{url_for('fn1.static', filename='style.css')}}"/>
+    </head>
+    <body>
+            <table>
+                <tr>
+                    <td>ユーザ名</td>
+                    <td>{{question.name}}</td>
+                </tr>
+                <tr>
+                    <td>メールアドレス</td>
+                    <td>{{question.mail}}</td>
+                </tr>
+                <tr>
+                    <td>問い合わせ内容</td>
+                    <td><textarea rows="20" cols="100" disabled>{{question.content}}</textarea></td>
+                </tr>
+            </table>
+    </body>
+</html>

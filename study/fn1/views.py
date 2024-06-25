@@ -88,3 +88,7 @@ def contacts():
         flash("問い合わせ完了")
         return render_template('fn1/contacts.html', questions=questions)
 
+@fn1.route("/contacts/<id>", methods=['GET'])
+def contact(id):
+    question = Question.query.get(id)
+    return render_template('fn1/contact.html', question=question)

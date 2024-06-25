@@ -30,7 +30,7 @@
         <tbody>
             {% for question in questions %}
             <tr>
-                <th scope="row">{{question.name}}</th>
+                <td>{{question.name}}</th>
                 <td>{{question.mail}}</td>
                 <td><a href="{{url_for('fn1.contacts')}}/{{question.id}}">{{question.content|truncate(40)}}</a></td>
             </tr>
