@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>問い合わせ</title>
+        <link rel="stylesheet" href="{{url_for('fn1.static', filename='style.css')}}"/>
+    </head>
+    <body>
+        <header>
+            <a href={{url_for('fn1.contacts')}}>一覧</a>
+        </header>
+        <form action="{{url_for('fn1.contact', id=current_id)}}"
+            method="POST" novalidate="novalidate">
+            <table>
+                <tr>
+                    <td>ユーザ名</td>
+                    <td>{{question.name}}</td>
+                </tr>
+                <tr>
+                    <td>メールアドレス</td>
+                    <td>{{question.mail}}</td>
+                </tr>
+                <tr>
+                    <td>問い合わせ内容</td>
+                    <td><textarea name="content" rows="20" cols="100" >{{question.content}}</textarea></td>
+                </tr>
+            </table>
+            <input type="submit" value="Update" />
+            <input type="reset" value="Reset" />
+            <a href={{url_for('fn1.contact', id=current_id)}}>
+                <input type="button" value="Cancel" />
+            </a>
+        </form>
+    </body>
+</html>

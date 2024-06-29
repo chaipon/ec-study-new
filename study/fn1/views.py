@@ -88,7 +88,21 @@ def contacts():
         flash("問い合わせ完了")
         return render_template('fn1/contacts.html', questions=questions)
 
-@fn1.route("/contacts/<id>", methods=['GET'])
+@fn1.route("/contacts/<id>", methods=['GET', 'POST'])
 def contact(id):
-    question = Question.query.get(id)
-    return render_template('fn1/contact.html', question=question)
+    if request.method == 'GET':
+        question = Question.query.get(id)
+        return render_template('fn1/contact.html', question=question, current_id=id)
+    if request.method == 'POST':
+        question = Question.query.get(id)
+        question.content = request.form.get('content')
+        db_session.merge(question)
+        db_session.commit()
+        flash("更新完了")
+        return render_template('fn1/contact.html', question=question, current_id=id)
+
+@fn1.route("/contacts/<id>/edit", methods=['GET', 'POST'])
+def contact_edit(id):
+    if request.method == 'GET':
+        question = Question.query.get(id)
+        return render_template('fn1/contact_edit.html', question=question, current_id=id)

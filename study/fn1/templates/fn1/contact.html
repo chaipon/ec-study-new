@@ -6,19 +6,32 @@
         <link rel="stylesheet" href="{{url_for('fn1.static', filename='style.css')}}"/>
     </head>
     <body>
-            <table>
-                <tr>
-                    <td>ユーザ名</td>
-                    <td>{{question.name}}</td>
-                </tr>
-                <tr>
-                    <td>メールアドレス</td>
-                    <td>{{question.mail}}</td>
-                </tr>
-                <tr>
-                    <td>問い合わせ内容</td>
-                    <td><textarea rows="20" cols="100" disabled>{{question.content}}</textarea></td>
-                </tr>
-            </table>
+        <header>
+            <a href={{url_for('fn1.contacts')}}>一覧</a>
+            <a href={{url_for('fn1.contact_edit', id=current_id)}}>修正</a>
+        </header>
+        <table>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="flash">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+            <tr>
+                <td>ユーザ名</td>
+                <td>{{question.name}}</td>
+            </tr>
+            <tr>
+                <td>メールアドレス</td>
+                <td>{{question.mail}}</td>
+            </tr>
+            <tr>
+                <td>問い合わせ内容</td>
+                <td><textarea disabled rows="20" cols="100">{{question.content}}</textarea></td>
+            </tr>
+        </table>
     </body>
 </html>

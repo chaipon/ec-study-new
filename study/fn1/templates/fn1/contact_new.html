@@ -8,6 +8,9 @@
     </head>
 
     <body>
+        <header>
+            <a href={{url_for('fn1.contacts')}}>一覧</a>
+        </header>
         <h2>問い合わせフォーム</h2>
 
         {% with messages = get_flashed_messages() %}
