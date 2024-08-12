@@ -20,30 +20,30 @@
         </ul>
         {% endif %}
         {% endwith %}
-	<h2>問い合わせ一覧</h2>
-	<table>
-		<thead>
-		    <th scope="col">問い合わせID</th>
-		    <th scope="col">名前</th>
-		    <th scope="col">メール</th>
-		    <th scope="col">問い合わせ内容</th>
-	    </thead>
-        <tbody>
-            {% for question in questions %}
-            <tr>
-                <td>{{question.id}}</td>
-                <td>{{question.name}}</td>
-                <td>{{question.mail}}</td>
-                <td><a href="{{url_for('fn1.contacts')}}/{{question.id}}">{{question.content|truncate(40)}}</a></td>
-                <td>
-                  <form action="{{url_for('fn1.contacts')}}/{{question.id}}/delete" method=post>
-                    <input class="danger" type="submit" value="Delete" onclick="return confirm('問い合わせID: {{question.id}} の問い合わせを削除しますか?');">
-                  </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-	</table>
+	      <h2>問い合わせ一覧</h2>
+	      <table>
+	      	<thead>
+	      	    <th scope="col">問い合わせID</th>
+	      	    <th scope="col">名前</th>
+	      	    <th scope="col">メール</th>
+	      	    <th scope="col">問い合わせ内容</th>
+	          </thead>
+              <tbody>
+                  {% for question in questions %}
+                  <tr>
+                      <td>{{question.id}}</td>
+                      <td>{{question.name}}</td>
+                      <td>{{question.mail}}</td>
+                      <td><a href="{{url_for('fn1.contacts')}}/{{question.id}}">{{question.content|truncate(40)}}</a></td>
+                      <td>
+                        <form action="{{url_for('fn1.contacts')}}/{{question.id}}/delete" method=post>
+                          <input class="danger" type="submit" value="Delete" onclick="return confirm('問い合わせID: {{question.id}} の問い合わせを削除しますか?');">
+                        </form>
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+	      </table>
     </body>
     {% endblock %}
 </html>
