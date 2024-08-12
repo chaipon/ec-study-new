@@ -106,3 +106,10 @@ def contact_edit(id):
     if request.method == 'GET':
         question = Question.query.get(id)
         return render_template('fn1/contact_edit.html', question=question, current_id=id)
+
+@fn1.route("/contacts/<id>/delete", methods=['POST'])
+def contact_delete(id):
+    question = Question.query.get(id)
+    db_session.delete(question)
+    db_session.commit()
+    return redirect(url_for('fn1.contacts'))
