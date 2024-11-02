@@ -12,6 +12,13 @@ Flask sample program for studying web system
     > python -m build --wheel
     > python -m pip install .\dist\study-1.0.0-py2.py3-none-any.whl
 
+# DB初期化
+
+    > flask shell
+    >>>> from study import database
+    >>>> database.init_db()
+
+
 # ローカル環境実行
 
     > flask run
@@ -28,4 +35,7 @@ Flask sample program for studying web system
     > python3 -m venv .venv
     > source .venv\bin\activate
     > python3 -m pip install ../study-1.0.0-py2.py3-none-any.whl
+    > flask shell
+    >>>> from study import database
+    >>>> database.init_db()
     > waitress-serve  --listen=192.168.10.10:50xx --call 'study:create_app'
